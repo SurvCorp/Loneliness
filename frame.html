@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name=viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frame</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+
+    <style>
+        body {
+            background-image: url("Puerto-Galera-Bay-12.jpg");
+        }
+
+        .frame {
+            position: absolute;
+        }
+
+        i.edit-button, i.save-button {
+            position: absolute;
+            top: 5px;
+            right: 0px;
+            display: none;
+        }
+
+        .ui.segment {
+            margin-bottom: 0px;
+        }
+
+        .frame.normal:hover i.edit-button {
+            display: block;
+        }
+
+        .frame.editing:hover i.save-button {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="frame normal" id="frame0" style="top:185px;left:655px">
+        <div class="ui segment" id="content0">
+            <h3 class="ui header">Gefilde der Unseligen</h3>
+            <p>
+                Satt bin ich meiner Inselsucht,<br>
+                des toten Grüns, der stummen Herden;<br>
+                ich will ein Ufer, eine Bucht,<br>
+                ein Hafen Schöner Schiffen werden.
+            </p>
+            <p>
+                Mein Strand will sich von Lebendem<br>
+                mit warmen Fuß begangen fühlen;<br>
+                die Quelle murrt in gebendem<br>
+                Gelüste und will Kehlen kühlen.
+            </p>
+            <p>
+                Und alles will in fremdes Blut<br>
+                aufsteigen und ertrunken treiben<br>
+                in eines andern Lebensglut,<br>
+                und nichts will in sich selber bleiben.
+            </p>
+            <p style="text-align: right">
+                ~Gottfried Benn
+            </p>
+        </div>
+        <i class="large edit outline icon edit-button" onclick="edit('0')"></i>
+        <i class="large save icon save-button" onclick="save('0')"></i>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    
+    <script src="https://cdn.ckeditor.com/ckeditor5/12.1.0/balloon/ckeditor.js"></script>
+
+    <script>
+
+        $( function() {
+            $( ".frame" ).draggable();
+        } );
+
+        let editor = {};
+
+        function edit( frame ) {
+            $( "#frame" + frame ).draggable({disabled: true});
+
+            BalloonEditor
+                .create( document.querySelector( "#content" + frame ))
+                .then ( newEditor => {
+                    editor[frame] = newEditor;
+                } )
+                .catch( error => {
+                    console.error( error );
+                } );
+                
+            document.getElementById("frame" + frame).classList.replace("normal", "editing");
+        }
+
+        function save( frame ) {
+            editor[frame].destroy()
+                .catch ( error => {
+                    console.log( error );
+                } );
+
+            $( "#frame" + frame ).draggable({disabled: false});
+
+            document.getElementById( "frame" + frame).classList.replace("editing", "normal");
+        }
+
+
+
+    </script>
+</body>
+</html>
