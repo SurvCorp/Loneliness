@@ -1,0 +1,40 @@
+ 
+/* apenas para testar o background */
+div#root {
+    background-image: url("cyberpunk-wallpaper.jpg");
+}
+
+/* Seletor de cor nas configurações da página */
+#colors i.check {
+    display: none;
+}
+
+#colors .selected i.check {
+    display: inherit;
+}
+
+/* Frames */
+.frame {
+    position: absolute;
+}
+
+/* Dropdown de botões de controle dos frames */
+i.edit-button, i.save-button {
+    position: absolute;
+    top: 5px;
+    right: 0px;
+    display: none;
+}
+
+.ui.segment {
+    margin-bottom: 0px;
+}
+
+.frame.normal:hover i.edit-button {
+    display: block;
+}
+
+.frame.editing:hover i.save-button {
+    display: block;
+}
+/* end */

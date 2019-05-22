@@ -7,34 +7,8 @@
     <title>Artium Dominus › Home :: Loneliness</title>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
-    
-    <style>
-        div#root {
-            background-image: url("cyberpunk-wallpaper.jpg");
-        }
+    <link rel="stylesheet" href="functional-prototype.css">
 
-        .frame {
-            position: absolute;
-        }
-
-        i.edit-button {
-            position: absolute;
-            top: 0px;
-            right: 0px;
-            display: none;
-        }
-
-        .frame:hover i.edit-button{
-            display: block;
-        }
-
-        i.save-button {
-            position: absolute;
-            top: 0px;
-            right: 0px;
-            display: none;
-        }
-    </style>
 </head>
 <body class="pushable">
 
@@ -47,20 +21,20 @@
             <div class="ui form">
                 <div class="field">
                     <label>Nome da página</label>
-                    <input type="text" value="Home">
+                    <input type="text" value="Home" id="nome">
                 </div>
                 <div class="field">
                     <label>Descrição (opcional)</label>
-                    <input type="text">
+                    <input type="text" value="Home, sweet home." id="descricao">
                 </div>
                 <div class="field">
                     <label>Tipo de página</label>
                     <div class="ui selection dropdown">
-                        <input type="hidden" name="type">
+                        <input type="hidden" name="type" value="0">
                         <i class="dropdown icon"></i>
-                        <div class="default text">Tipo</div>
+                        <div class="text">Público</div>
                         <div class="menu">
-                            <div class="item" data-value="0">Público</div>
+                            <div class="item active selected" data-value="0">Público</div>
                             <div class="item" data-value="1">Amigos</div>
                             <div class="item" data-value="2">Privado</div>
                         </div>
@@ -69,44 +43,106 @@
                 <div class="field">
                     <label>Layout</label>
                     <div class="ui selection dropdown">
-                        <input type="hidden" name="type">
+                        <input type="hidden" name="type" value="0">
                         <i class="dropdown icon"></i>
-                        <div class="default text">Layout</div>
+                        <div class="text">Livre</div>
                         <div class="menu">
-                            <div class="item" data-value="0">Livre</div>
+                            <div class="item active selected" data-value="0">Livre</div>
                             <div class="item" data-value="1">Grid</div>
+                            <div class="item" data-value="2">Artigo</div>
                         </div>
                     </div>
                 </div>
                 <div class="inline fields">
                     <label for="background">Background:</label>
-                    <div class="field">
+                    <div class="field" onclick="selecionarCor()" id="cor radio button">
                         <div class="ui radio checkbox">
-                            <input type="radio" name="background" checked="" tabindex="0" class="hidden">
+                            <input type="radio" name="background" tabindex="0" class="hidden">
                             <label>Cor</label>
                         </div>
                     </div>
-                    <div class="field">
+                    <div class="field" onclick="selecionarImagem()" id="imagem radio button">
                         <div class="ui radio checkbox">
-                            <input type="radio" name="background" tabindex="0" class="hidden">
+                            <input type="radio" name="background" tabindex="0" class="hidden" checked>
                             <label>Imagem</label>
                         </div>
                     </div>
                 </div>
-                <i class="circle outline icon"></i>
-                <i class="circle red icon"></i>
-                <i class="circle orange icon"></i>
-                <i class="circle yellow icon"></i>
-                <i class="circle olive icon"></i>
-                <i class="circle green icon"></i>
-                <i class="circle teal icon"></i>
-                <i class="circle blue icon"></i>
-                <i class="circle violet icon"></i>
-                <i class="circle purple icon"></i>
-                <i class="circle pink icon"></i>
-                <i class="circle brown icon"></i>
-                <i class="circle grey icon"></i>
-                <i class="circle black icon"></i>
+                <div id="colors" style="display:none">
+                    <i class="icons selected">
+                        <i class="circle outline icon"></i>
+                        <i class="check icon"></i>
+                    </i>
+                    <i class="icons">
+                        <i class="circle red icon"></i>
+                        <i class="check icon"></i>
+                    </i>
+                    <i class="icons">
+                        <i class="circle orange icon"></i>
+                        <i class="check icon"></i>
+                    </i>
+                    <i class="icons">
+                        <i class="circle yellow icon"></i>
+                        <i class="check icon"></i>
+                    </i>
+                    <i class="icons">
+                        <i class="circle olive icon"></i>
+                        <i class="check icon"></i>
+                    </i>
+                    <i class="icons">
+                        <i class="circle green icon"></i>
+                        <i class="check icon"></i>
+                    </i>
+                    <i class="icons">
+                        <i class="circle teal icon"></i>
+                        <i class="check icon"></i>
+                    </i>
+                    <i class="icons">
+                        <i class="circle blue icon"></i>
+                        <i class="check icon"></i>
+                    </i>
+                    <i class="icons">
+                        <i class="circle violet icon"></i>
+                        <i class="check icon"></i>
+                    </i>
+                    <i class="icons">
+                        <i class="circle purple icon"></i>
+                        <i class="check icon"></i>
+                    </i>
+                    <i class="icons">
+                        <i class="circle pink icon"></i>
+                        <i class="check icon"></i>
+                    </i>
+                    <i class="icons">
+                        <i class="circle brown icon"></i>
+                        <i class="check icon"></i>
+                    </i>
+                    <i class="icons">
+                        <i class="circle grey icon"></i>
+                        <i class="check icon"></i>
+                    </i>
+                    <i class="icons">
+                        <i class="circle black icon"></i>
+                        <i class="check inverted icon"></i>
+                    </i>             
+                </div>
+                <div id="pictures">
+                
+                    <img class="ui medium right spaced image" src="cyberpunk-wallpaper.jpg" id="preview">
+                    
+                        <div class="ui vertical labeled icon buttons" style="position:absolute;bottom:40px;">
+                            <button class="ui button">
+                                <i class="images icon"></i>
+                                Escolher da Galeria
+                            </button>
+                            <button class="ui button">
+                                <i class="upload icon"></i>
+                                Upload
+                            </button>
+                            <button class="ui black button">Pesquisar no Unsplash</button>
+                        </div>
+                    
+                </div>
             </div>
         </div>
         <div class="actions">
@@ -124,13 +160,13 @@
                 <div class="inline fields">
                     <div class="field">
                     <label>Nome da Página</label>
-                    <input type="text" placeholder="First Name">
+                    <input type="text" id="page name input">
                     </div>
                 </div>
             </div>
         </div>
         <div class="actions">
-            <div class="ui ok positive button">OK</div>
+            <div class="ui ok positive button" onclick="createPage()">OK</div>
             <div class="ui cancel negative button">Cancel</div>
         </div>
     </div>
@@ -151,38 +187,38 @@
             <i class="cog icon"></i>
             <b>Configurações</b>
         </a>
-        
-        <a class="item" onclick="newPage()">
-            <i class="plus square icon"></i>
-            <b>Nova Página</b>
-        </a>
 
         <a class="item" onclick="newFrame()">
             <i class="plus circle icon"></i>
             <b>Adicionar Frame</b>
         </a>
+
+        <a class="item" onclick="newPage()">
+            <i class="plus square icon"></i>
+            <b>Nova Página</b>
+        </a>
         
         <div class="item">
             <div class="header">Páginas</div>
-            <div class="menu">
+            <div class="menu" id="paginas">
 
-                <a class="item" href="#">
+                <a class="item" href="javascript:goTo('Home')">
                     <ins>» Home</ins>
                 </a>
 
-                <a class="item" href="#">
+                <a class="item" href="javascript:goTo('Poetry')">
                     › Poetry
                 </a>
 
-                <a class="item" href="#">
+                <a class="item" href="javascript:goTo('Cubes')">
                     › Cubes
                 </a>
 
-                <a class="item" href="#">
+                <a class="item" href="javascript:goTo('Travel Book')">
                     › Travel Book
                 </a>
 
-                <a class="item" href="#">
+                <a class="item" href="javascript:goTo('Gallery')">
                     › Gallery
                 </a>
 
@@ -311,101 +347,15 @@
         </div>
     </div>
 
+    <!-- JQuery -->
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.0.min.js"></script>
+    <!-- Semantic UI -->
     <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
-    <!--script src="https://code.jquery.com/jquery-1.12.4.js"></script-->
+    <!-- JQuery UI -->
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    
+    <!-- CK Editor -->
     <script src="https://cdn.ckeditor.com/ckeditor5/12.1.0/balloon/ckeditor.js"></script>
-
-    <script>
-        
-        $( function() {
-            $( ".frame" ).draggable();
-        } );
-
-        $('.ui.dropdown')
-            .dropdown()
-        ;
-        
-
-        var n_id = 9;
-
-        function newFrame() {
-            var id = "frame" + n_id++;
-
-            var frame = document.createElement("div");
-            frame.classList.add("ui");
-            frame.classList.add("segment");
-            frame.classList.add("frame");
-            frame.id = id;
-            frame.style.position = "absolute";
-
-            var editButton = document.createElement("i");
-            editButton.classList.add("large");
-            editButton.classList.add("edit");
-            editButton.classList.add("outline");
-            editButton.classList.add("icon");
-            editButton.classList.add("edit-button");
-            editButton.addEventListener("click", function() { edit( "#" + id )})
-
-            frame.append(editButton);
-            
-            var textnode = document.createTextNode("What are you thinking, Arian?");
-            frame.appendChild(textnode);
-
-            document.getElementById("root").appendChild(frame);
-            $( function() {
-                $( "#" + id ).draggable();
-            } );
-            
-            $( function() {
-                $( "#" + id ).resizable();
-            } );
-            
-        }
-
-        let editor = {};
-
-        function edit( frame ) {
-            $( frame ).draggable({disabled: true});
-
-            BalloonEditor
-                .create( document.querySelector( frame ) )
-                .then( newEditor =>{
-                    editor[frame] = newEditor;
-                } )
-                .catch( error => {
-                    console.error( error );
-                } );
-        }
-
-        function deleteFrame( frame ) {
-            document.getElementById("root").removeChild( document.getElementById( frame ) );
-        }
-
-        function save( frame ) {
-            editor[frame].destroy()
-                .catch( error => {
-                    console.log( error );
-                } );
-
-            $( frame ).draggable({disabled: false});
-        }
-
-
-        function configuracoes() {
-            $( '#configuracoes').modal( 'show' );
-        }
-
-        function closeBar() {
-            $( '.ui.sidebar' ).sidebar( 'toggle');
-        }
-
-        function newPage() {
-            $( '.ui.mini.modal').modal( 'show' );
-        }
-        
-    </script>
+    <!-- Script do protótipo -->
+    <script src="functional-prototype.js"></script>
 </body>
 </html>
