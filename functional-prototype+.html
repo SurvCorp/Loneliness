@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Artium Dominus › Home :: Loneliness</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <link rel="stylesheet" href="functional-prototype.css">
+
+</head>
+<body class="pushable">
+
+    <!-- Configurações -->
+    <div class="ui modal" id="configuracoes">
+        <div class="header">
+            <i class="cog icon"></i>Configurações da Página
+        </div>
+        <div class="content">
+            <div class="ui form">
+                <div class="field">
+                    <label>Nome da página</label>
+                    <input type="text" value="Home" id="nome">
+                </div>
+                <div class="field">
+                    <label>Descrição (opcional)</label>
+                    <input type="text" value="Home, sweet home." id="descricao">
+                </div>
+                <div class="field">
+                    <label>Tipo de página</label>
+                    <div class="ui selection dropdown">
+                        <input type="hidden" name="type" value="0">
+                        <i class="dropdown icon"></i>
+                        <div class="text">Público</div>
+                        <div class="menu">
+                            <div class="item active selected" data-value="0">Público</div>
+                            <div class="item" data-value="1">Amigos</div>
+                            <div class="item" data-value="2">Privado</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                    <label>Layout</label>
+                    <div class="ui selection dropdown">
+                        <input type="hidden" name="type" value="0">
+                        <i class="dropdown icon"></i>
+                        <div class="text">Livre</div>
+                        <div class="menu">
+                            <div class="item active selected" data-value="0">Livre</div>
+                            <div class="item" data-value="1">Grid</div>
+                            <div class="item" data-value="2">Artigo</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="inline fields">
+                    <label for="background">Background:</label>
+                    <div class="field" onclick="selecionarCor()" id="cor radio button">
+                        <div class="ui radio checkbox">
+                            <input type="radio" name="background" tabindex="0" class="hidden">
+                            <label>Cor</label>
+                        </div>
+                    </div>
+                    <div class="field" onclick="selecionarImagem()" id="imagem radio button">
+                        <div class="ui radio checkbox">
+                            <input type="radio" name="background" tabindex="0" class="hidden" checked>
+                            <label>Imagem</label>
+                        </div>
+                    </div>
+                </div>
+                <div id="colors" style="display:none">
+                    <i class="icons selected">
+                        <i class="circle outline icon"></i>
+                        <i class="check icon"></i>
+                    </i>
+                    <i class="icons">
+                        <i class="circle red icon"></i>
+                        <i class="check icon"></i>
+                    </i>
+                    <i class="icons">
+                        <i class="circle orange icon"></i>
+                        <i class="check icon"></i>
+                    </i>
+                    <i class="icons">
+                        <i class="circle yellow icon"></i>
+                        <i class="check icon"></i>
+                    </i>
+                    <i class="icons">
+                        <i class="circle olive icon"></i>
+                        <i class="check icon"></i>
+                    </i>
+                    <i class="icons">
+                        <i class="circle green icon"></i>
+                        <i class="check icon"></i>
+                    </i>
+                    <i class="icons">
+                        <i class="circle teal icon"></i>
+                        <i class="check icon"></i>
+                    </i>
+                    <i class="icons">
+                        <i class="circle blue icon"></i>
+                        <i class="check icon"></i>
+                    </i>
+                    <i class="icons">
+                        <i class="circle violet icon"></i>
+                        <i class="check icon"></i>
+                    </i>
+                    <i class="icons">
+                        <i class="circle purple icon"></i>
+                        <i class="check icon"></i>
+                    </i>
+                    <i class="icons">
+                        <i class="circle pink icon"></i>
+                        <i class="check icon"></i>
+                    </i>
+                    <i class="icons">
+                        <i class="circle brown icon"></i>
+                        <i class="check icon"></i>
+                    </i>
+                    <i class="icons">
+                        <i class="circle grey icon"></i>
+                        <i class="check icon"></i>
+                    </i>
+                    <i class="icons">
+                        <i class="circle black icon"></i>
+                        <i class="check inverted icon"></i>
+                    </i>             
+                </div>
+                <div id="pictures">
+                
+                    <img class="ui medium right spaced image" src="cyberpunk-wallpaper.jpg" id="preview">
+                    
+                        <div class="ui vertical labeled icon buttons" style="position:absolute;bottom:40px;">
+                            <button class="ui button">
+                                <i class="images icon"></i>
+                                Escolher da Galeria
+                            </button>
+                            <button class="ui button">
+                                <i class="upload icon"></i>
+                                Upload
+                            </button>
+                            <button class="ui black button">Pesquisar no Unsplash</button>
+                        </div>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="actions">
+            <div class="ui black ok button">OK</div>
+        </div>
+    </div>
+
+    <!-- Nova Página -->
+    <div class="ui mini modal">
+        <div class="header">
+            Nova Página
+        </div>
+        <div class="content">
+            <div class="ui form">
+                <div class="inline fields">
+                    <div class="field">
+                    <label>Nome da Página</label>
+                    <input type="text" id="page name input">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="actions">
+            <div class="ui ok positive button" onclick="createPage()">OK</div>
+            <div class="ui cancel negative button">Cancel</div>
+        </div>
+    </div>
+
+    <!-- Menu Lateral -->
+    <div class="ui visible inverted left vertical sidebar menu">
+        
+        <div class="item">
+            <a class="ui logo icon image" href="#">
+                <img src="crow-grey-silhouette.svg" style="width:40px;height:40px">
+            </a>
+            <a href="#" style="margin-left:10px">
+                <b>Loneliness</b>
+            </a>
+        </div>
+
+        <div class="item">
+            <div class="ui dropdown">
+                <img class="ui avatar image" src="profile.jpg">
+                <span>Artium Dominus
+                    <i class="dropdown icon"></i>
+                </span>
+                <div class="menu">
+                    <div class="item">
+                        Configurações da conta
+                    </div>
+                    <div class="item">
+                        Ajuda
+                    </div>
+                    <div class="item">
+                        <span style="color:crimson">Log Out</span>
+                        <!--i class="sign-out icon"></i-->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <a class="item" onclick="configuracoes()">
+            <i class="cog icon"></i>
+            <b>Configurações</b>
+        </a>
+
+        <a class="item" onclick="newFrame()">
+            <i class="plus circle icon"></i>
+            <b>Adicionar Frame</b>
+        </a>
+
+        <a class="item" onclick="newPage()">
+            <i class="plus square icon"></i>
+            <b>Nova Página</b>
+        </a>
+        
+        <div class="item">
+            <div class="header">Páginas</div>
+            <div class="menu" id="paginas">
+
+                <a class="item" href="javascript:goTo('Home')">
+                    <ins>» Home</ins>
+                </a>
+
+                <a class="item" href="javascript:goTo('Poetry')">
+                    › Poetry
+                </a>
+
+                <a class="item" href="javascript:goTo('Cubes')">
+                    › Cubes
+                </a>
+
+                <a class="item" href="javascript:goTo('Travel Book')">
+                    › Travel Book
+                </a>
+
+                <a class="item" href="javascript:goTo('Gallery')">
+                    › Gallery
+                </a>
+
+            </div>
+        </div>  
+        
+        <a class="item" onclick="closeBar()">« Close</a>
+    </div>
+
+    <div class="pusher" id="root">
+        <!-- Site content -->
+        <div class="ui segment frame" id="frame0" style="position:absolute;top:20px;left:20px">
+            <h3 class="ui header">About</h3> <i class="large edit outline icon edit-button" onclick="edit('#frame0')"></i>
+            <p style="text-align: center">
+                Just another replicant falling apart
+            </p>
+            <p>
+                <i class="home icon"></i>
+                Lives in Valhalla, Södermanlands Län, Sweden<br>
+                <i class="birthday cake icon"></i>
+                March 30, 1995<br>
+                <i class="mars icon"></i>
+                Male<br>
+                <i class="heart icon"></i>
+                In a relationship
+            </p>
+        </div>
+        <div class="ui inverted segment frame" id="frame1" style="position:absolute;top:190px;left:20px">
+            <h3 class="ui header">Contact</h3> <i class="large edit outline icon edit-button" onclick="edit('#frame1')"></i>
+            <p>
+                <i class="envelope icon"></i>
+                Email: artiumdominus@protonmail.com<br>
+                <i class="telegram icon"></i>
+                Telegram: @artiumdominus<br>
+                <i class="comments icon"></i>
+                [matrix]: @artiumdominus:matrix.allmende.io
+            </p>
+        </div>
+        <div class="ui segment frame" id="frame2" style="position:absolute;top:320px;left:20px">
+            <h3 class="ui header">Portifolio</h3> <i class="large edit outline icon edit-button" onclick="edit('#frame2')"></i>
+            <p>
+                <i class="github icon"></i>
+                <a href="https://github.com/artiumdominus">github.com/artiumdominus</a><br>
+                <i class="instagram icon"></i>
+                <a href="#">instagram.com/artiumdominus</a><br>
+                <i class="deviantart icon"></i>
+                <a href="#">deviantart.com/artiumdominus</a>
+            </p> 
+        </div>
+        <div class="ui segment frame" id="frame3" style="position:absolute;top:6px;left:360px">
+            <h3 class="ui header">Today's Reflection</h3 ><i class="large edit outline icon edit-button" onclick="edit('#frame3')"></i>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris quis arcu ex. Maecenas luctus auctor felis, aliquet dictum turpis<br>
+                vestibulum sed. Cras et lorem in orci sollicitudin tincidunt. Donec condimentum elit id nisl fermentum bibendum. In turpis orci,<br>
+                posuere ut nisl eget, volutpat lacinia quam. Ut nec tortor at neque blandit tristique rutrum ut metus. Quisque lacinia nibh viverra<br>
+                ligula rhoncus, quis laoreet urna imperdiet. Nulla vel accumsan est. Aenean gravida at nunc euismod volutpat. Integer dolor odio,<br>
+                faucibus eu condimentum hendrerit, condimentum suscipit libero. Ut egestas bibendum tellus, vitae commodo lacus.
+            </p>
+        </div>
+        
+        <div class="ui inverted segment frame" id="frame4" style="position:absolute;top:381px;left:872px">
+            <h3 class="ui header">Gefilde der Unseligen</h3> <i class="large edit outline inverted icon edit-button" onclick="edit('#frame4')"></i>
+            <p>
+                Satt bin ich meiner Inselsucht,<br>
+                des toten Grüns, der stummen Herden;<br>
+                ich will ein Ufer, eine Bucht,<br>
+                ein Hafen Schöner Schiffen werden.<br>
+            </p>
+            <p>
+                Mein Strand will sich von Lebendem<br>
+                mit warmen Fuß begangen fühlen;<br>
+                die Quelle murrt in gebendem<br>
+                Gelüste und will Kehlen kühlen.<br>
+            </p>
+            <p>
+                Und alles will in fremdes Blut<br>
+                aufsteigen und ertrunken treiben<br>
+                in eines andern Lebensglut,<br>
+                und nichts will in sich selber bleiben.
+            </p>
+            <p style="text-align: right">
+                ~Gottfried Benn
+            </p>
+        </div>
+        
+        <div class="ui segment frame" id="frame5" style="position:absolute;top:659px;left:356px;">
+            <i class="quote left icon"></i>
+            <b>To live is to suffer, to survive is to find some meaning in the suffering. </b>
+            <i class="quote right icon"></i>
+            <br>
+            - Friedrich Nietzsche
+            <i class="large edit outline icon edit-button" onclick="edit('#frame5')"></i>
+        </div>
+        <div class="ui segment frame" id="frame6" style="position:absolute;top:514px;left:20px">
+            <p style="text-align:center">... isolated ... <i class="big close icon edit-button" onclick="deleteFrame('frame6')"></i> </p>
+            <iframe width="280" height="157" src="https://www.youtube.com/embed/YnAqOI7jTRM?controls=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            
+        </div>
+        <div class="ui segment frame" id="frame7" style="position:absolute;top:174px;left:363px">
+            <h4 class="ui header"><i class="film icon"></i> Ghost in the Shell (1995)</h4> <i class="big close icon edit-button" onclick="deleteFrame('frame7')"></i>
+            <div class="ui large image">
+                <img src="ghost-in-the-shell-maxresdefault.jpg">
+            </div>
+            <br>
+            <div class="summary">
+                Directed by: Mamoru Oshii<br>
+                Writters: Shirow Masamune (based on the manga by),<br>
+                Kazunory Itô (screenplay)<br>
+                Genre: Science Fiction, Cyberpunk<br>
+                <br>
+                A cyborg policewoman and her partner hunt a mysterious
+                and powerful<br> hacker called the Puppet Master.<br>
+            </div>
+            <div style="text-align:right">
+            <a href="https://www.imdb.com/title/tt0113568/">IMDb »</a>
+            </div>     
+        </div>
+        <div class="ui inverted teal segment frame" id="frame8" style="position:absolute;top:185px;left:1054px">
+            <h3 class="ui header">Loneliness Project</h3> <i class="large edit outline icon edit-button" onclick="edit('#frame8')"></i>
+            <i class="check square icon"></i> Write Requirements<br>
+            <i class="check square icon"></i> Choose CSS Frameworks<br>
+            <i class="check square icon"></i> Choose JavaScript Frameworks<br>
+            <i class="square icon"></i>Make Functional Prototype<br>
+            <i class="square icon"></i>Choose Backend Frameworks<br>
+            <i class="square icon"></i>Model Database<br>
+        </div>
+    </div>
+
+    <!-- JQuery -->
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.0.min.js"></script>
+    <!-- Semantic UI -->
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+    <!-- JQuery UI -->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <!-- CK Editor -->
+    <script src="https://cdn.ckeditor.com/ckeditor5/12.1.0/balloon/ckeditor.js"></script>
+    <!-- Script do protótipo -->
+    <script src="functional-prototype.js"></script>
+</body>
+</html>
