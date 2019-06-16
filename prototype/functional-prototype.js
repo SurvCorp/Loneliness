@@ -196,13 +196,11 @@ function newPage() {
 function selecionarCor() {
     document.getElementById("pictures").style.display = "none";
     document.getElementById("colors").style.display = "block";
-    console.log("pew");
 }
 
 function selecionarImagem() {
     document.getElementById("colors").style.display = "none";
     document.getElementById("pictures").style.display = "block";
-    console.log("pow");
 }
 
 function goTo( pg ) {

@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 
 import Login from './Login.js';
+import Dashboard from './Dashboard.js';
 
 function App() {
   return (
@@ -36,7 +37,7 @@ function AppRouter() {
         */}
         
         <Route path="/" exact render={() => <Login auth={fakeAuth}/>}/>
-        <PrivateRoute path="/home/" component={App} />
+        <PrivateRoute path="/home/" component={Dashboard} />
       </div>
     </Router>
   );
