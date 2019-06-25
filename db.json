@@ -1,0 +1,15 @@
+{
+	"users": [
+		{ "id": 1, "nome": "Pedro Basilio", "username": "artiumdominus" },
+		{ "id": 2, "nome": "Rafael", "username": "rafael" },
+		{ "id": 3 },
+		{ "id": 4 },
+		{ "id": 5 },
+	],
+	"pages": [
+		{ "id": 1, "nome": "Home", "pagename": "home", "description": "Home, sweet home.", "pagetype": "public", "layout": "free", "owner": 1 }
+	],
+	"frames": [
+		{ "id": 1, "content": '<h1>About</h1><p style="text-align: center">Just another replicant falling apart</p>' }
+	]
+}
