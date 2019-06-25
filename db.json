@@ -10,6 +10,6 @@
 		{ "id": 1, "nome": "Home", "pagename": "home", "description": "Home, sweet home.", "pagetype": "public", "layout": "free", "owner": 1 }
 	],
 	"frames": [
-		{ "id": 1, "content": '<h1>About</h1><p style="text-align: center">Just another replicant falling apart</p>' }
+		{ "id": 1, "content": "<h1>About</h1><p style='text-align: center'>Just another replicant falling apart</p>" }
 	]
 }
