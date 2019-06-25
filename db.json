@@ -2,14 +2,14 @@
 	"users": [
 		{ "id": 1, "nome": "Pedro Basilio", "username": "artiumdominus" },
 		{ "id": 2, "nome": "Rafael", "username": "rafael" },
-		{ "id": 3 },
-		{ "id": 4 },
-		{ "id": 5 },
+		{ "id": 3, "nome": "Kusanagi Motoko", "username": "major" },
+		{ "id": 4, "nome": "Molly Millions", "username": "mirrorshades" },
+		{ "id": 5, "nome": "Rachael Tyrell", "username": "iamthebusiness" },
 	],
 	"pages": [
 		{ "id": 1, "nome": "Home", "pagename": "home", "description": "Home, sweet home.", "pagetype": "public", "layout": "free", "owner": 1 }
 	],
 	"frames": [
-		{ "id": 1, "content": "<h1>About</h1><p style='text-align: center'>Just another replicant falling apart</p>" }
+		{ "id": 1, "content": "<h1>About</h1><p style='text-align: center'>Just another replicant falling apart</p>", "page": 1 }
 	]
 }
