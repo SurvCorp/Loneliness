@@ -8,38 +8,48 @@ class Login extends React.Component {
         super(props);
         this.state = { redirectToReferrer: false };
     }
-    
 
     login = () => {
-        this.props.auth.authenticate(
-            () => this.setState({ redirectToReferrer: true })
-        );
+        var username = document.forms["login form"]["username"].value;
+        var password = document.forms["login form"]["password"].value;
+        var string = '{"username":"' + username + '","password":"' + password + '"}';
+        var request = new XMLHttpRequest();
+        request.onreadystatechange = (e) => {
+            if (request.readyState === 4 && request.status === 200) {
+                let token = "Token " + JSON.parse(request.responseText).token;
+                this.props.auth.authenticate(token);
+                this.setState({ redirectToReferrer: true });
+            }
+        }
+        request.open("POST", "http://127.0.0.1:8000/api-token-auth/", true)
+        request.setRequestHeader("Content-Type","application/json")
+        request.send(string);
     }
 
     render() {
         if (this.state.redirectToReferrer) return <Redirect to={{pathname: "/home"}}/>
 
         return (
-            <div className="ui middle aligned center aligned grid">
-                <div className="column">
-                    <h2 className="ui inverted image header">
-                        <img src="crow-grey-silhouette.svg" className="image" alt="Loneliness logo" />
+            <div className="ui middle aligned center aligned grid" style={{height: "100%"}}>
+                <div className="column" style={{maxWidth: "450px"}}>
+                    <h2 className="ui image header"> {/* inverted */}
+                        <img src="crow-grey-silhouette.svg" className="image" alt="Loneliness logo" style={{manginTop: "-100px"}} />
                         <div className="content">
                             Log-in to your Loneliness
                         </div>
                     </h2>
-                    <form className="ui large form">
+                    <form className="ui large form" name="login form">
                         <div className="ui stacked segment">
                             <div className="field">
                                 <div className="ui left icon input">
                                     <i className="user icon"></i>
-                                    <input type="text" name="username" placeholder="Username or email address"/>
+                                    <input type="text" name="username" placeholder="Username or email address" id="id_username" />
                                 </div>
                             </div>
                             <div className="field">
                                 <div className="ui left icon input">
                                     <i className="lock icon"></i>
-                                    <input type="password" name="password" placeholder="Password"/>
+                                    <input type="password" name="password" placeholder="Password" id="id_password" />
                                 </div>
                             </div>
 

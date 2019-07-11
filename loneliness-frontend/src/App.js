@@ -10,32 +10,10 @@ import {
 import Login from './Login.js';
 import Dashboard from './Dashboard.js';
 
-function App() {
-  return (
-    <div className="App ui segment">
-      Bem vindo! você está logado.
-    </div>
-  );
-}
-
 function AppRouter() {
   return (
     <Router>
       <div style={{height: "100%"}}>
-        
-        {/*
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Login</Link>
-            </li>
-            <li>
-              <Link to="/home/">App</Link>
-            </li>
-          </ul>
-        </nav>
-        */}
-        
         <Route path="/" exact render={() => <Login auth={fakeAuth}/>}/>
         <PrivateRoute path="/home/" component={Dashboard} />
       </div>
@@ -44,14 +22,15 @@ function AppRouter() {
 }
 
 const fakeAuth = {
-  isAuthenticated: true,
-  authenticate(cb) {
+  isAuthenticated: false,
+  token: null,
+  authenticate(token) {
     this.isAuthenticated = true;
-    setTimeout(cb, 100); // fake async
+    this.token = token;
   },
-  signout(cb) {
+  logout() {
     this.isAuthenticated = false;
-    setTimeout(cb, 100);
+    this.token = null;
   }
 };
 
@@ -60,7 +39,7 @@ function PrivateRoute({ component: Component, ...rest }) {
     <Route
       {...rest}
       render={props => fakeAuth.isAuthenticated ? (
-        <Component {...props} />
+        <Component token={fakeAuth.token} auth={fakeAuth} {...props} />
       ) : (
         <Redirect
           to={{pathname: "/", state: {from: props.location}}}
