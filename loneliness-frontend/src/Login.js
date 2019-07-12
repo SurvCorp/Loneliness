@@ -61,7 +61,7 @@ class Login extends React.Component {
                     </form>
 
                     <div className="ui message">
-                        New to Loneliness? <a href="#">Sign Up</a>
+                        New to Loneliness? <a href="http://127.0.0.1:8000/auth/register/">Sign Up</a>
                     </div>
                 </div>
             </div>

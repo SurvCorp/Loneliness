@@ -1,7 +1,11 @@
 import React from 'react'
-import { Header, Icon, Image, Menu, Segment, Sidebar, Dropdown, Modal, Form, Input, Button, Divider } from 'semantic-ui-react'
-import Frame from './Frames.js'
+import { Header, Icon, Image, Menu, Segment, Sidebar, Dropdown, Modal, Form, Input, Button, Divider, Container } from 'semantic-ui-react'
+import Frame from './Frame'
 import { Route } from 'react-router-dom';
+
+import { DndProvider } from 'react-dnd'
+import HTML5Backend from 'react-dnd-html5-backend'
+import DnDtest from './Container'
 
 class Color extends React.Component {
     render() {
@@ -253,19 +257,17 @@ class PageLink extends React.Component {
     render() {
         return (
             this.props.main === this.props.id ? (
-                <Menu.Item as='a'>
+                <Menu.Item as='a' onClick={() => this.props.goTo(this.props.page)}>
                     <ins>» {this.props.title}</ins>
                 </Menu.Item>
             ) : (
-                <Menu.Item as='a'>
+                <Menu.Item as='a' onClick={() => this.props.goTo(this.props.page)}>
                     › {this.props.title}
                 </Menu.Item>
             )
         );
     }
 }
-
-
 
 class Dashboard extends React.Component {
 
@@ -355,6 +357,33 @@ class Dashboard extends React.Component {
         request.send(JSON.stringify(frame));
     }
 
+    goTo = (page) => {
+        this.setState({page: page});
+        var requestframes = new XMLHttpRequest();
+        requestframes.onreadystatechange = (e) => {
+            if (requestframes.readyState === 4 && requestframes.status === 200) {
+                this.setState({frames: JSON.parse(requestframes.responseText)});
+            }
+        };
+        requestframes.open("GET", "http://127.0.0.1:8000/pages/" + this.state.page.id + "/components/", true);
+        requestframes.setRequestHeader("Authorization", this.props.token);
+        requestframes.send();
+    }
+
+    toObj(frames) {
+        let obj = {};
+        for (let i = 0; i < frames.length; ++i) {
+            obj[frames[i].id] = {
+                name: frames[i].name,
+                content: frames[i].description,
+                left: parseInt(frames[i].x),
+                top: parseInt(frames[i].y),
+            }
+        }
+        console.log(obj);
+        return obj;
+    }
+
     render() {
         return (
             <Sidebar.Pushable as='div'>
@@ -395,7 +424,7 @@ class Dashboard extends React.Component {
                     <Menu.Item as='div'>
                         <Menu.Header>Pages</Menu.Header> {/* Substituir pelas páginas do usuário */}
                         <Menu.Menu>
-                            {this.state.pages.map( (page) => <PageLink key={page.id} title={page.title} main={this.state.page.id} /> )}
+                            {this.state.pages.map( (page) => <PageLink key={page.id} title={page.title} main={this.state.page.id} page={page} goTo={this.goTo}/> )}
                         </Menu.Menu>
                     </Menu.Item>
 
@@ -404,10 +433,17 @@ class Dashboard extends React.Component {
                     </Menu.Item>
                 </Sidebar>
                 <Sidebar.Pusher>
-                    <Segment basic> {/* Substituir conteúdo por frames */}
+                    {/*
+                    <Segment basic>
                         <Header as='h3'>Application Content</Header>
                         <Image src='https://react.semantic-ui.com/images/wireframe/paragraph.png' />
                     </Segment>
+                    */}
+                    {/*
+                    <DndProvider backend={HTML5Backend}>
+                        <DnDtest hideSourceOnDrag="true" framesObj={this.toObj(this.state.frames)}/>
+                    </DndProvider>
+                    */}
                     {
                         this.state.frames.map(
                             (frame) => <Frame 
