@@ -161,3 +161,18 @@ class ComponentDetailView(APIView):
         component = self.get_object(comp_pk)
         component.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+	
+## Site Views
+
+from django.http import HttpResponse
+from django.shortcuts import render
+
+def login(request):
+	return render(request, 'core/login.html', {})
+
+def logon(request):
+	return render(request, 'core/logon.html', {})
+
+def dashboard(request, username):
+	# return HttpResponse("Hello, user. You're at Dashboard of %s." % username)
+	return render(request, 'core/dashboard.html', {})

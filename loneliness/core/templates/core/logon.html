@@ -1,0 +1,100 @@
+<DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login :: Loneliness</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+    
+    <style>
+		body > .grid {
+			height: 100%;
+		}
+		.column {
+			max-width: 450px;
+		}
+	</style>
+</head>
+<body>
+
+	<div class ="ui middle aligned center aligned grid">
+		<div class="column">
+			<h2 class="ui header">Embrace your Loneliness</h2>
+			<form class="ui large form">
+				<div class="ui stacked segment">
+					<label>Username</label>
+					<div class="field">
+						<input type="text" name="username" placeholder="Username" id="id_username">
+					</div>
+					<label>Email</label>
+					<div class="field">
+						<input type="text" name="email" placeholder="Email" id="id_email">
+					</div>
+					<label>Password</label>
+					<div class="field">
+						<input type="text" name="password" placeholder="Password" id="id_password">
+					</div>
+					
+					<div class="ui fluid large black submit button" onclick="logon()">Sign Up for Loneliness</div>
+				</div>
+				
+				<div class="ui error message"></div>
+				
+			</form>
+		</div>
+	</div>
+	
+	<script>
+		function logon() {
+			var user = {};
+			user.username = document.getElementById("id_username").value;
+			user.email = document.getElementById("id_email").value;
+			user.password = document.getElementById("id_password").value;
+			
+			console.log(JSON.stringify(user));
+			
+			var request = new XMLHttpRequest();
+			request.onreadystatechange = function() {
+				if (this.readyState == 4) {
+					console.log(this.responseText);
+				}
+			}
+			request.open("POST", "/api/auth/register/", true);
+			request.setRequestHeader("Content-Type", "application/json");
+			request.send(JSON.stringify(user));
+		}
+	
+		/*
+		$(document)
+			.ready(function() {
+				$('.ui.form')
+					.submit( function ( event ) {
+						var
+							$form = $('.ui.form')
+							register = $form.form('get values')
+						;
+						
+						console.log(register);
+						
+						var request = new XMLHttpRequest();
+						request.onreadystatechange = function() {
+							if (this.readyState == 4) {
+								console.log(this.responseText);
+							}
+						}
+						request.open("POST", "/api/auth/register/", true);
+						request.setRequestHeader("Content-Type", "application/json");
+						request.send(JSON.stringify(register));
+					})
+				;
+			})
+		;
+		*/
+	</script>
+	
+</body>
+</html>

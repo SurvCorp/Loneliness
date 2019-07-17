@@ -36,11 +36,28 @@
         .frame.editing:hover i.save-button {
             display: block;
         }
+        
+        /* Frame 2 */
+        
+        .ui.vertical.icon.buttons, .ui.icon.button {
+			position: absolute;
+			top: 0px;
+			right: -30px;
+			display: none;
+        }
+        
+        .frame.normal:hover .ui.vertical.icon.buttons {
+			display: block;
+        }
+        
+        .frame.editing:hover .ui.icon.button {
+			display: block;
+        }
     </style>
 </head>
 <body>
 
-    <div class="frame normal" id="frame0" style="top:185px;left:655px">
+    <div class="frame normal" id="frame0" style="top:185px;left:355px">
         <div class="ui segment" id="content0">
             <h3 class="ui header">Gefilde der Unseligen</h3>
             <p>
@@ -67,6 +84,43 @@
         </div>
         <i class="large edit outline icon edit-button" onclick="edit('0')"></i>
         <i class="large save icon save-button" onclick="save('0')"></i>
+    </div>
+    
+    <div class="frame normal" id="frame1" style="top:185px;left:955px">
+        <div class="ui segment" id="content1">
+            <h3 class="ui header">Gefilde der Unseligen</h3>
+            <p>
+                Satt bin ich meiner Inselsucht,<br>
+                des toten Grüns, der stummen Herden;<br>
+                ich will ein Ufer, eine Bucht,<br>
+                ein Hafen Schöner Schiffen werden.
+            </p>
+            <p>
+                Mein Strand will sich von Lebendem<br>
+                mit warmen Fuß begangen fühlen;<br>
+                die Quelle murrt in gebendem<br>
+                Gelüste und will Kehlen kühlen.
+            </p>
+            <p>
+                Und alles will in fremdes Blut<br>
+                aufsteigen und ertrunken treiben<br>
+                in eines andern Lebensglut,<br>
+                und nichts will in sich selber bleiben.
+            </p>
+            <p style="text-align: right">
+                ~Gottfried Benn
+            </p>
+        </div>
+        <div class="ui vertical tiny icon buttons">
+			<button class="ui button" onclick="editPlus(event, 1)"><i class="edit icon"></i></button>
+			<button class="ui button"><i class="arrow right icon"></i></button>
+			<button class="ui button"><i class="clone outline icon"></i></button>
+			<button class="ui button"><i class="archive icon"></i></button>
+			<button class="ui button"><i class="close icon"></i></button>
+			<button class="ui button"><i class="cog icon"></i></button>
+			<button class="ui button"><i class="tag icon"></i></button>
+        </div>
+        <button class="ui tiny icon button"><i class="save icon"></i></button>
     </div>
 
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -98,6 +152,7 @@
         }
 
         function save( frame ) {
+			console.log("save!");
             editor[frame].destroy()
                 .catch ( error => {
                     console.log( error );
@@ -108,7 +163,25 @@
             document.getElementById( "frame" + frame).classList.replace("editing", "normal");
         }
 
-
+		function editPlus( event, frame ) {
+			$( "#frame" + frame ).draggable({disabled: true});
+			
+			console.log("edit plus!");
+			
+			BalloonEditor
+				.create( document.querySelector( "#content" + frame ))
+				.then ( newEditor => {
+					editor[frame] = newEditor;
+				} )
+				.catch( error => {
+					console.error( error );
+				} );
+			
+			document.getElementById("frame" + frame).classList.replace("normal", "editing");
+			
+			event.stopPropagation();
+			$(window).click(function() { save(frame) });
+		}
 
     </script>
 </body>
