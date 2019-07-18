@@ -165,10 +165,18 @@ class ComponentDetailView(APIView):
 ## Site Views
 
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+
+def hall(request):
+	if request.user is not None and request.user.is_active:
+		return redirect('/' + request.user.username + '/')
+	return redirect('/login/')
 
 def login(request):
 	return render(request, 'core/login.html', {})
+
+def loginredirect(request):
+	return redirect('/' + request.user.username + '/')
 
 def logon(request):
 	return render(request, 'core/logon.html', {})

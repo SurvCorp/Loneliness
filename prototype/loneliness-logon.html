@@ -27,8 +27,7 @@
     <div class="ui middle aligned center aligned grid">
         <div class="column">
             <h2 class="ui image header">
-				{% load static %}
-                <img src="{% static "core/crow-grey-silhouette.svg" %}" class="image">
+                <img src="crow-grey-silhouette.svg" class="image">
                 <div class="content">
                     Embrace your Loneliness
                 </div>
@@ -39,33 +38,26 @@
 						<label>Username</label>
                         <div class="ui left icon input">
                             <i class="user icon"></i>
-                            <input type="text" name="username" placeholder="Username" id="id_username">
+                            <input type="text" name="username" placeholder="Username">
                         </div>
                     </div>
                     <div class="field">
 						<label>Email</label>
                         <div class="ui left icon input">
                             <i class="envelope outline icon"></i>
-                            <input type="text" name="email" placeholder="Email address" id="id_email">
+                            <input type="text" name="username" placeholder="Email address">
                         </div>
                     </div>
                     <div class="field">
 						<label>Password</label>
                         <div class="ui left icon input">
                             <i class="lock icon"></i>
-                            <input type="password" name="password" placeholder="Password" id="id_password">
-                        </div>
-                    </div>
-                    <div class="field">
-						<label>Repeat password</label>
-                        <div class="ui left icon input">
-                            <i class="lock icon"></i>
                             <input type="password" name="password" placeholder="Password">
                         </div>
                     </div>
-                    
+                    <!--a href="functional-prototype.html"-->
                     <div class="ui fluid large black submit button">Sign Up for Loneliness</div>
-
+                    <!--/a-->
                 </div>
 
                 <div class="ui error message"></div>
@@ -73,30 +65,6 @@
             </form>
         </div>
     </div>
-    
-    {% csrf_token %}
-	
-	<script>
-		function logon() {
-			let user = {};
-			user.username = document.getElementById("id_username").value;
-			user.email = document.getElementById("id_email").value;
-			user.password = document.getElementById("id_password").value;
-			let csrftoken = $("[name=csrfmiddlewaretoken]").val();
-			
-			let request = new XMLHttpRequest();
-			request.onreadystatechange = function() {
-				if (this.readyState == 4) {
-					user = JSON.parse(this.responseText);
-					window.location.href = '/login/';
-				}
-			}
-			request.open("POST", "/api/auth/register/", true);
-			request.setRequestHeader("X-CSRFToken", csrftoken);
-			request.setRequestHeader("Content-Type", "application/json");
-			request.send(JSON.stringify(user));
-		}
-	</script>
     
 </body>
 </html> 

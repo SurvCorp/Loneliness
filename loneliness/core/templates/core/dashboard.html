@@ -37,8 +37,8 @@
 						<div class="text">Público</div>
 						<div class="menu">
 							<div class="item activate selected" data-value="0">Público</div>
-							<div class="item" data-value="1">Amigos</div>
-							<div class="item" data-value="2">Privado</div>
+							<div class="item disabled" data-value="1">Amigos</div>
+							<div class="item disabled" data-value="2">Privado</div>
 						</div>
 					</div>
 				</div>
@@ -50,8 +50,8 @@
 						<div class="text">Livre</div>
 						<div class="menu">
 							<div class="item active selected" data-value="0">Livre</div>
-							<div class="item" data-value="1">Grid</div>
-							<div class="item" data-value="2">Artigo</div>
+							<div class="item disabled" data-value="1">Grid</div>
+							<div class="item disabled" data-value="2">Artigo</div>
 						</div>
 					</div>
 				</div>
@@ -63,67 +63,67 @@
 							<label>Cor</label>
 						</div>
 					</div>
-					<div class="field" onclick="selectPicture()" id="imagem radio button">
-						<div class="ui radio checkbox">
+					<div class="field" id="imagem radio button"><!-- onclick="selectPicture()" -->
+						<div class="ui radio checkbox disabled">
 							<input type="radio" name="background" tabindex="0" class="hidden">
 							<label>Imagem</label>
 						</div>
 					</div>
 				</div>
 				<div id="colors">
-					<i class="icons selected">
+					<i class="icons selected" id="#FFFFFF">
 						<i class="circle outline icon"></i>
 						<i class="check icon"></i>
 					</i>
-					<i class="icons">
+					<i class="icons" id="#DB2828">
 						<i class="circle red icon"></i>
 						<i class="check icon"></i>
 					</i>
-					<i class="icons">
+					<i class="icons" id="#F2711C">
 						<i class="circle orange icon"></i>
 						<i class="check icon"></i>
 					</i>
-					<i class="icons">
+					<i class="icons" id="#FBBD08">
 						<i class="circle yellow icon"></i>
 						<i class="check icon"></i>
 					</i>
-					<i class="icons">
+					<i class="icons" id="#B5CC18">
 						<i class="circle olive icon"></i>
 						<i class="check icon"></i>
 					</i>
-					<i class="icons">
+					<i class="icons" id="#21BA45">
 						<i class="circle green icon"></i>
 						<i class="check icon"></i>
 					</i>
-					<i class="icons">
+					<i class="icons" id="#00B5AD">
 						<i class="circle teal icon"></i>
 						<i class="check icon"></i>
 					</i>
-					<i class="icons">
+					<i class="icons" id="#2185D0">
 						<i class="circle blue icon"></i>
 						<i class="check icon"></i>
 					</i>
-					<i class="icons">
+					<i class="icons" id="#6435C9">
 						<i class="circle violet icon"></i>
 						<i class="check icon"></i>
 					</i>
-					<i class="icons">
+					<i class="icons" id="#A333C8">
 						<i class="circle purple icon"></i>
 						<i class="check icon"></i>
 					</i>
-					<i class="icons">
+					<i class="icons" id="#E03997">
 						<i class="circle pink icon"></i>
 						<i class="check icon"></i>
 					</i>
-					<i class="icons">
+					<i class="icons" id="#A5673F">
 						<i class="circle brown icon"></i>
 						<i class="check icon"></i>
 					</i>
-					<i class="icons">
+					<i class="icons" id="#767676">
 						<i class="circle grey icon"></i>
 						<i class="check icon"></i>
 					</i>
-					<i class="icons">
+					<i class="icons" id="#1B1C1D">
 						<i class="circle black icon"></i>
 						<i class="check inverted icon"></i>
 					</i>
@@ -190,7 +190,7 @@
 		<div class="item">
 			<div class="ui dropdown">
 				<img class="ui avatar image" src="{% static "core/profile.jpg" %}">
-				<span>{Nome do usuário}
+				<span><span id="username"></span>
 					<i class="dropdown icon"></i>
 				</span>
 				<div class="menu">
@@ -200,7 +200,7 @@
 					<div class="item">
 						Ajuda
 					</div>
-					<div class="item">
+					<div class="item" onclick="logout()">
 						<span style="color:crimson">Log Out</span>
 					</div>
 				</div>
@@ -227,7 +227,9 @@
 			<div class="menu" id="pages"></div>
 		</div>
 		
-		<a class="item" onclick="closeBar()">« Close</a>
+		<div class="item" onclick="closeBar()" style="position:absolute;bottom:0px;right:0px;cursor:pointer">
+			<i class="big angle double left icon"></i>
+        </div>
 
 	</div>
 	

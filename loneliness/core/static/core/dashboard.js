@@ -4,9 +4,11 @@ let csrftoken = null;
 
 // Faz os seletores de cor se comportarem como radio-buttons
 // Made the color selectors behave like radio-buttons
+let selected_color = null;
 $('#colors .icons').click( function() {
 	$('#colors .icons.selected').removeClass('selected')
 	$(this).addClass('selected')
+	selected_color = this.id;
 });
 
 function selectColor() {
@@ -59,6 +61,7 @@ function load() {
 	requestuser.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
 			user = JSON.parse(this.responseText);
+			document.getElementById("username").innerHTML = user.username;
 		}
 	}
 	requestuser.open("GET", "/api/auth/user/", true);
@@ -92,6 +95,7 @@ function setPages(pages_gotten) {
 		let link = document.createElement("a");
 		link.classList.add("item");
 		link.addEventListener("click", function() { goTo(id) });
+		link.id = "pagelink" + id;
 		
 		let text = document.createTextNode("› " + pages[id].title);
 		link.appendChild(text);
@@ -101,16 +105,22 @@ function setPages(pages_gotten) {
 }
 
 function goTo(page_id) {
+	if (page != null) {
+		document.getElementById("pagelink" + page.id).innerHTML = "› " + page.title;
+	}
 	page = pages[page_id];
+	document.getElementById("pagelink" + page.id).innerHTML = "›› <u>" + page.title + "</u>";
 	
-	document.title = " › " + page.title + " :: Loneliness";
+	document.title = user.username + " › " + page.title + " :: Loneliness";
 	document.getElementById("name").value = page.title;
-	document.getElementById("description").value = page.description; 
+	document.getElementById("description").value = page.description;
+	document.getElementById(page.backgroundColor).click();
 	
 	let requestframes = new XMLHttpRequest();
 	requestframes.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
 			let frames_gotten = JSON.parse(this.responseText);
+			document.getElementById("root").style.backgroundColor = page.backgroundColor;
 			setFrames(frames_gotten);
 		}
 	}
@@ -136,7 +146,7 @@ function setFrames(frames_gotten) {
 		frame.id = "frame" + id;
 		frame.style.top = frames[id].y + "px";
 		frame.style.left = frames[id].x + "px";
-		frame.addEventListener("dragend", function() { console.log("yay");})
+		//frame.addEventListener("dblclick", function() { edit(id) })
 		
 		let content = document.createElement("div");
 		content.classList.add("ui");
@@ -298,6 +308,7 @@ function reloadPages() {
 		if (this.readyState == 4 && this.status == 200) {
 			let pages_gotten = JSON.parse(this.responseText);
 			setPages(pages_gotten);
+			goTo(page.id);
 		}
 	}
 	request.open("GET", "/api/pages/", true);
@@ -313,13 +324,13 @@ function updatePage() {
 		url: "https://www.wikipedia.org",
 		description: description,
 		visibility: "PUBLIC",
-		backgroundColor: "white"
+		backgroundColor: selected_color
 	}
 	
 	let request = new XMLHttpRequest();
 	request.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
-			reloadPages() // <- Alterar manualmente
+			reloadPages(); // <- Alterar manualmente
 		}
 	}
 	request.open("PUT", "/api/pages/" + page.id + "/", true);
@@ -360,6 +371,7 @@ function cancelPageSettings() {
 	setTimeout( function() {
 		document.getElementById("name").value = page.title;
 		document.getElementById("description").value = page.description;
+		document.getElementById(page.backgroundColor).click();
 	}, 100);
 }
 
@@ -479,4 +491,16 @@ function clone(frame) {
 	request.setRequestHeader("X-CSRFToken", csrftoken);
 	request.setRequestHeader("Content-Type", "application/json");
 	request.send(JSON.stringify(frame_clone));
+}
+
+function logout() {
+	let request = new XMLHttpRequest();
+	request.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			window.location.href = '/login/';
+		}
+	}
+	request.open("GET", "/api/auth/logout/", true);
+	request.setRequestHeader("X-CSRFToken", csrftoken);
+	request.send();
 }

@@ -12,7 +12,10 @@ urlpatterns = [
     path('api/pages/<int:page_pk>/components/', csrf_exempt(views.ComponentListView().as_view())),
     path('api/pages/<int:page_pk>/components/<int:comp_pk>/', csrf_exempt(views.ComponentDetailView().as_view())),
     
+    path('', views.hall, name='hall'),
     path('login/', views.login, name='login'),
     path('logon/', views.logon, name='logon'),
     path('<str:username>/', views.dashboard, name='dashboard'),
+    
+    path('accounts/profile/', views.loginredirect, name='loginredirect'),
 ]
